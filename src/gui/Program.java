@@ -15,7 +15,8 @@ public class Program {
 
     public static void main(String[] args) throws ParseException {
         InjectionList injecList = new InjectionList();
-
+        injecList.inputData();
+     
         // doctor menu
         Menu doctorMenu = new Menu("Welcome to Covid-19 Vaccine Management-@2021 by <SE151471-Hoang Minh Tuan>");
         doctorMenu.addNewOption("1.Show information all students have been injected");
@@ -27,7 +28,7 @@ public class Program {
 
         int choice;
         do {
-            injecList.inputData();
+            
             doctorMenu.printMenu();
             choice = doctorMenu.getChoice();
             switch (choice) {
@@ -50,7 +51,8 @@ public class Program {
                     boolean c = true;// c sand for continue
                     while (c) {
                         System.out.println("=========Updating information of students' vaccine injection=======");
-                        
+                        injecList.updateInjection();
+                        System.out.println("Do you want to countinue update? ");
                         c = injecList.menuYesNo();
                     
                     }
@@ -61,6 +63,7 @@ public class Program {
                     while (c) {
                         System.out.println("========Delete student vaccine injection information=======");
                         injecList.deleteInjection();
+                        System.out.println("Do you want to countinue delete? ");
                         c = injecList.menuYesNo();
                     }
                     break;
@@ -72,11 +75,13 @@ public class Program {
                         String studentID = MyToys.getID("Enter student's ID (AAXXXXXX): ",
                                 "The format of ID is AAXXXXXX", "^((SE)|(SS))\\d{6}$");
                         injecList.checkInjectionByStudentid(studentID).showProfile();
+                        System.out.println("Do you want to countinue search? ");
                         c = injecList.menuYesNo();
                     }
                     break;
                 }
                 case 6: {
+                    injecList.writeFile();
                     System.out.println("=========Others - Quit=======");
                     System.out.println("See you, enjoy!");
                     break;

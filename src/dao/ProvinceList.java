@@ -46,7 +46,7 @@ public class ProvinceList {
             FileReader fr = new FileReader("province.txt");
             BufferedReader br = new BufferedReader(fr);
             String line = "";
-
+            System.out.println(line);
             while (true) {
                 line = br.readLine();
                 if (line == null) {

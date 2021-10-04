@@ -18,14 +18,14 @@ import util.MyToys;
 public class Tester {
     public static void main(String[] args) throws ParseException  {
      InjectionList i = new InjectionList();
-       i.inputData();
-    i.AddFirstInjection();
+       i.readFile();
     
-//       
-     i. showInjectionList();
-       i.writeFile();
+    i.showInjectionList();
+// 
+//    
 //ProvinceList p = new ProvinceList();
 //p.readFile();
+//p.printProvinceList();
 
     }
 }
