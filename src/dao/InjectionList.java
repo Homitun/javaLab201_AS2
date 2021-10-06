@@ -35,12 +35,12 @@ public class InjectionList {
     ProvinceList pList = new ProvinceList();
     ArrayList<Injection> injectionList = new ArrayList<>();
 
-    public InjectionList() {
-    }
-
-    public void setsList(StudentList sList) {
-        this.sList = sList;
-    }
+//    public InjectionList() {
+//    }
+//
+//    public void setsList(StudentList sList) {
+//        this.sList = sList;
+//    }
 
     // Search doctor return pos
     public int searchInjectionByID(int injectionID) {
