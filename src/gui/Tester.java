@@ -18,6 +18,9 @@ import util.MyToys;
 public class Tester {
     public static void main(String[] args) throws ParseException  {
      InjectionList i = new InjectionList();
+     i.inputData();
+     i.AddFirstInjection();
+     i.updateInjection();
        i.readFile();
     
     i.showInjectionList();

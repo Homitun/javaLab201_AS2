@@ -96,7 +96,8 @@ public class Injection implements Comparable<Injection>{
 
     @Override
     public String toString() {
-        return   id + ";"+ studentId +";"  +vaccineId+";"+ injectionPlace1 + ";" +injectionDate1+ ";" + injectionPlace2+ ";" +injectionDate2+ "\n";
+         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        return   id + ";"+ studentId +";"  +vaccineId+";"+ injectionPlace1 + ";" +df.format(injectionDate1)+ ";" + injectionPlace2+ ";" +df.format(injectionDate2)+ "\n";
     }
     
     public void showProfile()throws ParseException{
@@ -105,7 +106,7 @@ public class Injection implements Comparable<Injection>{
         System.out.println("Injection Information");
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         System.out.printf("|First Vaccination|Place:%-15s|Time:%-8s|\n",injectionPlace1, df.format(injectionDate1));
-       
+       showSecondInjection();
     }
     public void showSecondInjection(){
         if(injectionDate2!= null){

@@ -19,6 +19,7 @@ import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Scanner;
 import javax.swing.text.StyledEditorKit;
@@ -35,13 +36,6 @@ public class InjectionList {
     ProvinceList pList = new ProvinceList();
     ArrayList<Injection> injectionList = new ArrayList<>();
 
-//    public InjectionList() {
-//    }
-//
-//    public void setsList(StudentList sList) {
-//        this.sList = sList;
-//    }
-
     // Search doctor return pos
     public int searchInjectionByID(int injectionID) {
         for (int i = 0; i < injectionList.size(); i++) {
@@ -51,7 +45,8 @@ public class InjectionList {
         }
         return -1;
     }
-     // Search injection by student id
+    // Search injection by student id
+
     public int searchInjectionByID(String StudentID) {
         for (int i = 0; i < injectionList.size(); i++) {
             if (StudentID.equalsIgnoreCase(injectionList.get(i).getStudentId())) {
@@ -66,6 +61,7 @@ public class InjectionList {
         if (injectionList.isEmpty()) {
             return null;
         }
+
         for (Injection injection : injectionList) {
             if (injection.getId() == injectionID) {
                 return injection;
@@ -91,21 +87,20 @@ public class InjectionList {
                         "The format of ID is AAXXXXXX", "^((SE)|(SS))\\d{6}$");
                 pos = sList.searchStudentByID(studentId);
                 pos1 = searchInjectionByID(studentId);
-                 
+
                 if (pos != -1 && pos1 == -1) {
                     System.out.println("Valid");
-                   
-                } else if(pos1 != -1){
-                   
-                        System.out.println("Student have been add!");
-                }else{
-               
+
+                } else {
+                    if (pos1 != -1) {
+                        System.out.println("student have been add!");
+                    }
                     System.out.println("Student ID is invalid, please re_enter!!");
                     System.out.println("Student list:");
                     sList.printStudentList();
-                    
+
                 }
-            } while (pos == -1 );
+            } while (pos == -1);
             do {
                 vaccineID = MyToys.getAnInteger("Enter vaccine id: ", "Vaccine must be interger (1-99)", 1, 99);
                 pos = vList.searchVaccineByID(vaccineID);
@@ -127,7 +122,7 @@ public class InjectionList {
         } while (injectionPlace1 == null);
         injectionList.add(new Injection(id, injectionPlace1, injectionPlace2, injectionDate1, injectionDate2, studentId, vaccineID));
         System.out.println("A student's vaccine injection information is sucessfully added!");
-        
+
     }
 
     // tao id ngau nhien
@@ -207,12 +202,13 @@ public class InjectionList {
                 showInjectionList();
             }
         } while (pos == -1);
-        if (searchInjection(id).getInjectionPlace2() == null) {
-            injectionDate1 = searchInjection(id).getInjectionDate1();
-            Date lowerBound = new Date(injectionDate1.getTime() + (1000 * 60 * 60 * 24 * 28));
-            Date upperBound = new Date(lowerBound.getTime() + (1000 * 60 * 60 * 24 * 56));
+        Injection injec = searchInjection(id);
+        if (injec.getInjectionPlace2() == null) {
+            long milies = injec.getInjectionDate1().getTime();
+            Date lowerBound = addDate(injec.getInjectionDate1(), 28);
+            Date upperBound = addDate(injec.getInjectionDate1(), 84);
             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            System.out.println(injectionDate1);
+
             injectionDate2 = MyToys.getADate("Enter injection date (dd-MM-yyyy):",
                     "the second injection must be given 4 to 12 weeks after the first injection",
                     lowerBound, upperBound);
@@ -224,6 +220,17 @@ public class InjectionList {
             System.out.println("A student's vaccine injection information is sucessfully added!");
         } else {
             System.out.println("Student has completed 2 injections!");
+        }
+    }
+
+    public void searchInjectionByStudentID() throws ParseException {
+        String studentID = MyToys.getID("Enter student's ID (AAXXXXXX): ",
+                "The format of ID is AAXXXXXX", "^((SE)|(SS))\\d{6}$");
+        Injection i = checkInjectionByStudentid(studentID);
+        if (i != null) {
+            i.showProfile();
+        } else {
+            System.out.println("Not found!");
         }
     }
 
@@ -248,7 +255,6 @@ public class InjectionList {
             FileReader fr = new FileReader("injection.txt");
             BufferedReader br = new BufferedReader(fr);
             String line = "";
-            
             while (true) {
                 line = br.readLine();
                 if (line == null) {
@@ -266,6 +272,7 @@ public class InjectionList {
             }
 
         } catch (Exception e) {
+            System.out.println("loiiiiii");
         }
         return injectionList;
     }
@@ -293,4 +300,11 @@ public class InjectionList {
         return flat;
     }
 
+    public Date addDate(Date dt, int n) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, n);
+        Date d = c.getTime();
+        return d;
+    }
 }

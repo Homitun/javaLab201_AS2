@@ -16,7 +16,6 @@ public class Program {
     public static void main(String[] args) throws ParseException {
         InjectionList injecList = new InjectionList();
         injecList.inputData();
-     
         // doctor menu
         Menu doctorMenu = new Menu("Welcome to Covid-19 Vaccine Management-@2021 by <SE151471-Hoang Minh Tuan>");
         doctorMenu.addNewOption("1.Show information all students have been injected");
@@ -72,9 +71,7 @@ public class Program {
                     boolean c = true;// c sand for continue
                     while (c) {
                         System.out.println("========Search for injection information by studentID========");
-                        String studentID = MyToys.getID("Enter student's ID (AAXXXXXX): ",
-                                "The format of ID is AAXXXXXX", "^((SE)|(SS))\\d{6}$");
-                        injecList.checkInjectionByStudentid(studentID).showProfile();
+                        injecList.searchInjectionByStudentID();
                         System.out.println("Do you want to countinue search? ");
                         c = injecList.menuYesNo();
                     }
