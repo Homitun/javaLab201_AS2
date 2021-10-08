@@ -1,5 +1,2 @@
-1;SE150004;2;Ha Noi;08-10-2021;null;chưa tiem
-2;SE150003;10;Ha Giang;08-10-2021;null;chưa tiem
-3;SE160005;2;Da Nang;04-09-2021;Da Nang;04-10-2021
-2;SE150003;10;Ha Giang;08-10-2021;null;chưa tiem
-3;SE160005;2;Da Nang;04-09-2021;Da Nang;04-10-2021
+1;SE150004;2;Ha Noi;08-10-2021;Ha Giang;09-11-2021
+2;SE140001;4;Ha Giang;07-10-2021;null;chưa tiem

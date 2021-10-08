@@ -31,7 +31,7 @@ public class InjectionList {
     StudentList sList = new StudentList();
     VaccineList vList = new VaccineList();
     ProvinceList pList = new ProvinceList();
-    ArrayList<Injection> injectionList = new ArrayList<>();
+    ArrayList<Injection> injectionList = readFile();
 
     // Search doctor return pos
     public int searchInjectionByID(int injectionID) {
@@ -139,9 +139,7 @@ public class InjectionList {
         }
         for (Injection injection : injectionList) {
             injection.showProfile();
-            if (injection.getInjectionDate2() != null) {
-                injection.showSecondInjection();
-            } else {
+            if (injection.getInjectionDate2() == null) {
                 System.out.println("Second Vaccination is empty");
             }
         }
@@ -231,9 +229,9 @@ public class InjectionList {
         }
     }
 
-    public void writeFile() {
+    public void writeFile()     {
         try {
-            FileWriter fw = new FileWriter("injection.txt", true);
+            FileWriter fw = new FileWriter("injection.txt");
             BufferedWriter bw = new BufferedWriter(fw);
             for (Injection injection : injectionList) {
                 bw.write(injection.toString());
@@ -274,6 +272,7 @@ public class InjectionList {
                 }catch(Exception e){
                     injectionDate2 = null;
                 }
+                
                 injectionList.add(new Injection(id, injectionPlace1, injectionPlace2, injectionDate1, injectionDate2, studentId, vaccineID));
             }
 
