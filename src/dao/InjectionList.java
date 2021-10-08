@@ -31,7 +31,7 @@ public class InjectionList {
     StudentList sList = new StudentList();
     VaccineList vList = new VaccineList();
     ProvinceList pList = new ProvinceList();
-    ArrayList<Injection> injectionList = readFile();
+    ArrayList<Injection> injectionList = new ArrayList<>();
 
     // Search doctor return pos
     public int searchInjectionByID(int injectionID) {
@@ -58,7 +58,6 @@ public class InjectionList {
         if (injectionList.isEmpty()) {
             return null;
         }
-
         for (Injection injection : injectionList) {
             if (injection.getId() == injectionID) {
                 return injection;
@@ -198,12 +197,12 @@ public class InjectionList {
             }
         } while (pos == -1);
         Injection injec = searchInjection(id);
-        if (injec.getInjectionPlace2() == null) {
+        
+        if (injec.getInjectionDate2() == null) {
             long milies = injec.getInjectionDate1().getTime();
             Date lowerBound = addDate(injec.getInjectionDate1(), 28);
             Date upperBound = addDate(injec.getInjectionDate1(), 84);
             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-
             injectionDate2 = MyToys.getADate("Enter injection date (dd-MM-yyyy):",
                     "the second injection must be given 4 to 12 weeks after the first injection",
                     lowerBound, upperBound);
@@ -246,7 +245,6 @@ public class InjectionList {
 
     public ArrayList<Injection> readFile() {
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-
         try {
             FileReader fr = new FileReader("injection.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -255,8 +253,7 @@ public class InjectionList {
             while (true) {
                 line = br.readLine();
                 System.out.println(line);
-                if (line == null) {
-                    
+                if (line == null) {                   
                     break;
                 }
                 String[] txt = line.split(";");
@@ -272,10 +269,8 @@ public class InjectionList {
                 }catch(Exception e){
                     injectionDate2 = null;
                 }
-                
                 injectionList.add(new Injection(id, injectionPlace1, injectionPlace2, injectionDate1, injectionDate2, studentId, vaccineID));
             }
-
         } catch (Exception e) {
             System.out.println("error");
         }
