@@ -116,18 +116,18 @@ public class StudentList {
         return studentList;
     }
 
-    public void writeFile() {
-        try {
-            FileWriter fw = new FileWriter("student.txt");
-            BufferedWriter bw = new BufferedWriter(fw);
-            for (Student student : studentList) {
-                bw.write(studentList.toString());
-            }
-            bw.close();
-            fw.close();
-        } catch (Exception e) {
-        }
-    }
+//    public void writeFile() {
+//        try {
+//            FileWriter fw = new FileWriter("student.txt");
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            for (Student student : studentList) {
+//                bw.write(studentList.toString());
+//            }
+//            bw.close();
+//            fw.close();
+//        } catch (Exception e) {
+//        }
+//    }
 
     public void printStudentList() {
         if (studentList.isEmpty()) {

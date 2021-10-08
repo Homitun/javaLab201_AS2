@@ -7,22 +7,19 @@ package dao;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import dto.Injection;
-import dto.Menu;
 import dto.Province;
-import dto.Vaccine;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Scanner;
-import javax.swing.text.StyledEditorKit;
+
 import util.MyToys;
 
 /**
@@ -100,7 +97,7 @@ public class InjectionList {
                     sList.printStudentList();
 
                 }
-            } while (pos == -1);
+            } while (pos1 != -1 );
             do {
                 vaccineID = MyToys.getAnInteger("Enter vaccine id: ", "Vaccine must be interger (1-99)", 1, 99);
                 pos = vList.searchVaccineByID(vaccineID);
@@ -243,21 +240,25 @@ public class InjectionList {
             }
             bw.close();
             fw.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            System.out.println("error");
 
         }
     }
 
     public ArrayList<Injection> readFile() {
-        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
             FileReader fr = new FileReader("injection.txt");
             BufferedReader br = new BufferedReader(fr);
             String line = "";
+            
             while (true) {
                 line = br.readLine();
+                System.out.println(line);
                 if (line == null) {
+                    
                     break;
                 }
                 String[] txt = line.split(";");
@@ -267,12 +268,17 @@ public class InjectionList {
                 String injectionPlace1 = txt[3];
                 Date injectionDate1 = (Date) formatter.parse(txt[4]);
                 String injectionPlace2 = txt[5];
-                Date injectionDate2 = (Date) formatter.parse(txt[6]);
+                Date injectionDate2 ;
+                try{
+                injectionDate2 = (Date) formatter.parse(txt[6]);
+                }catch(Exception e){
+                    injectionDate2 = null;
+                }
                 injectionList.add(new Injection(id, injectionPlace1, injectionPlace2, injectionDate1, injectionDate2, studentId, vaccineID));
             }
 
         } catch (Exception e) {
-            System.out.println("loiiiiii");
+            System.out.println("error");
         }
         return injectionList;
     }
