@@ -115,6 +115,7 @@ public class Injection implements Comparable<Injection>{
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         System.out.printf("|First Vaccination|Place:%-15s|Time:%-8s|\n",injectionPlace1, df.format(injectionDate1));
        showSecondInjection();
+        System.out.println("--------------------------------------------------");
     }
     public void showSecondInjection(){
         if(injectionDate2!= null){

@@ -146,7 +146,7 @@ public class InjectionList {
 
     public void deleteInjection() {
         int pos, id;
-        id = MyToys.getAnInteger("Input id to delete: ", "Injection ID can not be empty,"
+        id = MyToys.getAnInteger("Input Injection Id to delete: ", "Injection ID can not be empty,"
                 + " id must be positive interger", 1, Integer.MAX_VALUE);
         pos = searchInjectionByID(id);
         if (pos == -1) {
@@ -252,7 +252,7 @@ public class InjectionList {
             
             while (true) {
                 line = br.readLine();
-                System.out.println(line);
+               
                 if (line == null) {                   
                     break;
                 }

@@ -15,7 +15,7 @@ public class Program {
     public static void main(String[] args) throws ParseException {
         InjectionList injecList = new InjectionList();
         injecList.inputData();
-        // doctor menu
+        
         Menu doctorMenu = new Menu("Welcome to Covid-19 Vaccine Management-@2021 by <SE151471-Hoang Minh Tuan>");
         doctorMenu.addNewOption("1.Show information all students have been injected");
         doctorMenu.addNewOption("2.Add student's vaccine injection information");
