@@ -22,7 +22,8 @@ public class Program {
         doctorMenu.addNewOption("3.Updating information of students' vaccine injection");
         doctorMenu.addNewOption("4.Delete student vaccine injection information");
         doctorMenu.addNewOption("5.Search for injection information by studentID");
-        doctorMenu.addNewOption("6.Others - Quit");
+        doctorMenu.addNewOption("6.Search injection by injection ID");
+        doctorMenu.addNewOption("7.Others - Quit");
 
         int choice;
         do {
@@ -76,14 +77,27 @@ public class Program {
                     }
                     break;
                 }
-                case 6: {
+                case 6:{
+                     boolean c = true;// c sand for continue
+                    while (c) {
+                        System.out.println("========Search for injection information by injection ID========");
+                        injecList.searchInjectionByVaccineID();
+                                
+                        System.out.println("Do you want to countinue search? ");
+                        c = injecList.menuYesNo();
+                    }
+                    break;
+                
+                }
+                    
+                case 7: {
                     injecList.writeFile();
                     System.out.println("=========Others - Quit=======");
                     System.out.println("See you, enjoy!");
                     break;
                 }
             }
-        } while (choice != 6);
+        } while (choice != 7);
 
     }
 

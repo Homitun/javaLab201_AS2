@@ -69,46 +69,50 @@ public class InjectionList {
 
     // add new injection
     public void AddFirstInjection() throws ParseException {
-        Province a;
+         Province a;
         String i;
-        int pos1, pos, id, vaccineID;
+        int pos1, pos, id, posVac, vaccineID;
         String injectionPlace1, studentId, injectionPlace2 = null;
         Date injectionDate1, injectionDate2 = null;
         Date today = new Date();
         Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
         id = generateID();
+        boolean firstFlag = false;
+
         do {
-            do {
-                studentId = MyToys.getID("Enter student's ID (AAXXXXXX): ",
-                        "The format of ID is AAXXXXXX", "^((SE)|(SS))\\d{6}$");
-                pos = sList.searchStudentByID(studentId);
-                pos1 = searchInjectionByID(studentId);
-
-                if (pos != -1 && pos1 == -1) {
-                    System.out.println("Valid");
-
-                } else {
-                    if (pos1 != -1) {
-                        System.out.println("student have been add!");
-                    }
-                    System.out.println("Student ID is invalid, please re_enter!!");
-                    System.out.println("Student list:");
-                    sList.printStudentList();
-
+            studentId = MyToys.getID("Enter student's ID (AAXXXXXX): ",
+                    "The format of ID is AAXXXXXX", "^((SE)|(SS))\\d{6}$");
+            pos = sList.searchStudentByID(studentId);
+            pos1 = searchInjectionByID(studentId);
+            if (pos1 == -1 && pos != -1) {
+                System.out.println("Valid student's id");
+                break;
+            } else {
+                if (pos1 != -1) {
+                    System.out.println("This student have been injected!");
                 }
-            } while (pos1 != -1 );
-            do {
-                vaccineID = MyToys.getAnInteger("Enter vaccine id: ", "Vaccine must be interger (1-99)", 1, 99);
-                pos = vList.searchVaccineByID(vaccineID);
-                if (pos != -1) {
-                    System.out.println("Valid");
-                } else {
-                    System.out.println("Vaccine ID is invalid, please re_enter!!");
-                    System.out.println("Vaccine list:");
-                    vList.printVaccineList();
-                }
-            } while (pos == -1);
-        } while (pos == -1);
+                System.out.println("Please re-enter!!");
+                System.out.println("Student list:");
+                sList.printStudentList();
+                firstFlag = true;
+            }
+        } while (firstFlag);
+
+        do {
+            vaccineID = MyToys.getAnInteger("Enter vaccine id: ", "Vaccine must be interger (1-99)", 1, 99);
+            posVac = vList.searchVaccineByID(vaccineID);
+            if (posVac != -1) {
+                System.out.println("Valid");
+
+                break;
+            } else {
+                System.out.println("Vaccine ID is invalid, please re_enter!!");
+                System.out.println("Vaccine list:");
+                vList.printVaccineList();
+
+            }
+        } while (posVac == -1);
+
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         injectionDate1 = MyToys.getADate("Enter injection date (dd-MM-yyyy):",
                 "Wrong valid date range(from 01-01-2021 to today )",
@@ -120,6 +124,7 @@ public class InjectionList {
         System.out.println("A student's vaccine injection information is sucessfully added!");
 
     }
+
 
     // tao id ngau nhien
     private int generateID() {
@@ -226,6 +231,35 @@ public class InjectionList {
         } else {
             System.out.println("Not found!");
         }
+    }
+    public void searchInjectionByvaccineID(int vaccineID) throws ParseException{
+
+        ArrayList<Injection> listOfFound = new ArrayList<>();
+        for (Injection injection : injectionList) {
+            if( vaccineID == injection.getVaccineId())
+                listOfFound.add(injection);
+           
+        }
+        if (listOfFound.isEmpty()) {
+            System.out.println("Notfound!");
+        }else for (Injection injection : listOfFound) {
+                injection.showProfile();
+            }
+        
+        }
+        
+        
+//          for (Injection injection : injectionList) 
+//            if (vaccineID == injection.getVaccineId()) {
+//                return injection;
+//            }
+//        
+//        return null;
+    
+    public void searchInjectionByVaccineID() throws ParseException{
+      int ID = MyToys.getAnInteger("Input vaccine id to search:", "vaccine  id can not be empty", 1, 99);
+        searchInjectionByvaccineID(ID);
+        
     }
 
     public void writeFile()     {
